@@ -120,9 +120,8 @@ if (!sessionValue) {
 			const start = header.index + header[0].length;
 			const end = headers[index + 1]?.index ?? text.length;
 			const lines = text.slice(start, end).split(/\r?\n/);
-			const firstContentLine = lines.find((line) => line.trim()) || "";
 			const imageNotice = /\b(?:tem|cont[ée]m|contendo)\s+(?:uma\s+)?imagem|\(\s*(?:in?magem|tem\s+imagem|imagem\s+nas\s+respostas)\b|\bimagem\s+nas\s+respostas\b/i;
-			if (imageNotice.test(header[0]) || imageNotice.test(firstContentLine)) return;
+			if (imageNotice.test(header[0]) || imageNotice.test(lines.join("\n"))) return;
 
 			const parsedChoices = parseChoices(lines);
 			const possibleAnswers = answerKey.get(number) || [];
@@ -161,8 +160,8 @@ if (!sessionValue) {
 	async function loadQuestionBank() {
 		const files = await Promise.all(questionYears.map(async (year) => {
 			const [questionResponse, answerResponse] = await Promise.all([
-				fetch(`prova-${year}`),
-				fetch(`gabarito-${year}`),
+				fetch(`./provas/prova-${year}`),
+				fetch(`./gabaritos/gabarito-${year}`),
 			]);
 			if (!questionResponse.ok || !answerResponse.ok) {
 				throw new Error(`Não foi possível carregar as questões de ${year}.`);

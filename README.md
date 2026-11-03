@@ -1,7 +1,9 @@
 # Simulador-Enem
 
-link das provas:
+link oficial para provas e gabaritos:
 https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos
+
+Os arquivos locais das provas ficam em `provas/` e os gabaritos correspondentes em `gabaritos/`.
 
 ## Como usar
 
